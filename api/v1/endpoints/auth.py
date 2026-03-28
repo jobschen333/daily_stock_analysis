@@ -6,6 +6,8 @@ from __future__ import annotations
 import logging
 import os
 
+from typing import Optional
+
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel, Field
@@ -45,7 +47,7 @@ class LoginRequest(BaseModel):
     model_config = {"populate_by_name": True}
 
     password: str = Field(default="", description="Admin password")
-    password_confirm: str | None = Field(default=None, alias="passwordConfirm", description="Confirm (first-time)")
+    password_confirm: Optional[str] = Field(default=None, alias="passwordConfirm", description="Confirm (first-time)")
 
 
 class ChangePasswordRequest(BaseModel):
@@ -65,7 +67,7 @@ class AuthSettingsRequest(BaseModel):
 
     auth_enabled: bool = Field(alias="authEnabled")
     password: str = Field(default="")
-    password_confirm: str | None = Field(default=None, alias="passwordConfirm")
+    password_confirm: Optional[str] = Field(default=None, alias="passwordConfirm")
     current_password: str = Field(default="", alias="currentPassword")
 
 
