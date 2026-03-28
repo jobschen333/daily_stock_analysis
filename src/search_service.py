@@ -958,8 +958,12 @@ class MiniMaxSearchProvider(BaseSearchProvider):
             for item in data.get('organic', []):
                 date_val = item.get('date')
 
+                # Debug: log original date
+                logger.debug(f"[MiniMax] Result: title={item.get('title', '')[:50]}, date={date_val}")
+
                 # Client-side time filtering
                 if not self._is_within_days(date_val, days):
+                    logger.debug(f"[MiniMax] Filtered out (too old): date={date_val}")
                     continue
 
                 results.append(SearchResult(
